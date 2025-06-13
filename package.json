@@ -21,7 +21,9 @@
     "personality:technical": "node scripts/change-personality.js technical",
     "personality:empathetic": "node scripts/change-personality.js empathetic",
     "check:vas": "node scripts/check-vas-status.js",
-    "check:sunmi": "node scripts/check-vas-status.js"
+    "check:sunmi": "node scripts/check-vas-status.js",
+    "test:apk": "node scripts/test-apk-messaging.js",
+    "test:messaging": "node scripts/test-apk-messaging.js"
   },
   "keywords": [
     "sunmi",
@@ -41,7 +43,9 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "form-data": "^4.0.3",
     "helmet": "^8.0.0",
+    "multer": "^2.0.1",
     "winston": "^3.17.0"
   },
   "devDependencies": {

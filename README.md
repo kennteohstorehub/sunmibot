@@ -12,14 +12,50 @@ A professional AI-powered customer support chatbot for Sunmi device management, 
 
 ## ✨ Features
 
-- **🤖 Intelligent AI Chat**: Powered by Google Gemini 1.5 Flash
-- **📱 Device Management**: Real-time device status, location, and app monitoring
-- **🌐 Beautiful Web Interface**: Responsive design with real-time chat
-- **🔒 Secure API**: HMAC-SHA256 authentication with Sunmi OpenAPI
-- **📊 System Monitoring**: Built-in diagnostic and health checking
-- **🚀 Production Ready**: Optimized for deployment and scaling
-- **🎨 Customizable AI Personality**: Multiple personality modes for different use cases
-- **🔧 Comprehensive Tooling**: VAS status checker, API testing, deployment scripts
+### 🤖 AI-Powered Customer Support
+- **Google Gemini 2.5 Pro Integration**: Advanced conversational AI with context awareness
+- **Intelligent Device Troubleshooting**: Automated problem diagnosis and solutions
+- **Multi-language Support**: Communicate in multiple languages
+- **Personality Customization**: Switch between casual, technical, and empathetic modes
+- **Structured Status Reporting**: Summary-first responses with detailed bullet points
+- **Quick Action Buttons**: One-click access to common queries (status, location, apps, troubleshooting)
+
+### 📱 Comprehensive Device Management
+- **Real-time Device Monitoring**: Live status, location, and network information
+- **Device Health Analytics**: Automated health checks and performance monitoring
+- **Multi-device Support**: Manage multiple Sunmi devices from a single interface
+- **Historical Data Tracking**: Track device performance over time
+
+### 🔧 Remote APK Management
+- **APK File Upload**: Drag-and-drop APK installation with 100MB file support
+- **URL-based Installation**: Install apps directly from download URLs
+- **App Management**: Update, uninstall, and manage installed applications
+- **Package Validation**: Automatic APK validation and security checks
+
+### 💬 Device Communication
+- **Direct Messaging**: Send text messages directly to devices
+- **Push Notifications**: Send priority notifications with custom titles and content
+- **Remote Commands**: Execute system commands (reboot, screenshot, cache clear, etc.)
+- **Message History**: Track all communications with devices
+
+### 🌐 Modern Web Interface
+- **Responsive Design**: Works perfectly on desktop, tablet, and mobile
+- **Real-time Chat**: Instant messaging with typing indicators
+- **File Upload Interface**: Intuitive drag-and-drop APK installation
+- **Operation Results**: Real-time feedback on all operations
+
+### 🔒 Enterprise Security
+- **HMAC-SHA256 Authentication**: Secure API communication with Sunmi services
+- **Environment-based Configuration**: Secure credential management
+- **Request Validation**: Input sanitization and validation
+- **Error Handling**: Comprehensive error logging and user feedback
+
+### 🚀 Production Ready
+- **Docker Support**: Containerized deployment with docker-compose
+- **PM2 Integration**: Process management with auto-restart and clustering
+- **Health Monitoring**: Built-in health checks and status monitoring
+- **Logging**: Structured logging with Winston
+- **Auto-deployment**: One-command deployment scripts
 
 ## 🏗️ Architecture
 
@@ -260,14 +296,33 @@ npm run personality:empathetic # Set empathetic personality
 ## 🔧 API Endpoints
 
 ### Public Endpoints
-- `GET /` - Web interface
-- `POST /api/chat` - Chat with AI
-- `GET /health` - Health check
+- `GET /` - Web interface and documentation
+- `POST /api/chat` - Chat with AI assistant
+- `GET /api/health` - Health check
+- `GET /api/system-status` - Comprehensive system status with formatted response
+
+### Device Management
+- `GET /api/devices` - List all available devices
+- `GET /api/device/:deviceId` - Get comprehensive device information
+- `GET /api/device/:deviceId/status` - Get device status
+- `GET /api/device/:deviceId/location` - Get device location
+- `GET /api/device/:deviceId/apps` - Get installed apps
+
+### APK Installation & Management
+- `POST /api/device/:deviceId/install-app` - Install APK file or from URL
+  - **File Upload**: Send APK file as `multipart/form-data` with `apk` field
+  - **URL Install**: Send JSON with `appUrl`, `appName` fields
+- `POST /api/device/:deviceId/uninstall-app` - Uninstall app by package name
+- `POST /api/device/:deviceId/update-app` - Update existing app
+
+### Device Communication
+- `POST /api/device/:deviceId/send-message` - Send text message to device
+- `POST /api/device/:deviceId/send-notification` - Send push notification
+- `POST /api/device/:deviceId/send-command` - Execute remote command
+- `GET /api/device/:deviceId/message-history` - Get message history
 
 ### Admin Endpoints  
 - `GET /api/diagnostic` - System diagnostic
-- `GET /api/devices` - Device list (requires VAS)
-- `GET /api/device/:id` - Device details (requires VAS)
 
 ## 🚨 Troubleshooting
 

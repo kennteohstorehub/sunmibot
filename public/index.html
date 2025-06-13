@@ -209,6 +209,50 @@
             font-size: 12px;
         }
 
+        .device-input-section {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .device-input-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .device-input-help {
+            display: block;
+            color: #666;
+            font-size: 11px;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        #deviceSerialInput {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+            margin-bottom: 5px;
+        }
+
+        #deviceSerialInput:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        #deviceSerialInput:valid {
+            border-color: #4CAF50;
+        }
+
         .quick-actions {
             display: flex;
             gap: 8px;
@@ -223,11 +267,27 @@
             border-radius: 15px;
             cursor: pointer;
             font-size: 12px;
-            transition: background 0.2s;
+            transition: all 0.3s ease;
         }
 
         .quick-action-btn:hover {
             background: #e0e0e0;
+            transform: translateY(-1px);
+        }
+
+        .quick-action-btn.device-specific {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: 2px solid #667eea;
+            font-weight: bold;
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .quick-action-btn.device-specific:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
 
         .typing-indicator {
@@ -395,6 +455,206 @@
         .recommendation {
             margin-top: 10px;
         }
+
+        .apk-section {
+            margin: 15px 0;
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .apk-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .apk-header h6 {
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .apk-content {
+            padding: 20px;
+        }
+
+        .apk-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .apk-tab {
+            padding: 8px 16px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.2s;
+        }
+
+        .apk-tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            font-weight: bold;
+        }
+
+        .apk-tab:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .apk-tab-content {
+            animation: fadeIn 0.2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .btn-primary, .btn-success, .btn-warning, .btn-danger {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #45a049;
+            transform: translateY(-1px);
+        }
+
+        .btn-warning {
+            background: #ff9800;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #e68900;
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #da190b;
+            transform: translateY(-1px);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -446,11 +706,106 @@
         </div>
 
         <div class="chat-input-container">
+            <!-- Device Serial Number Input -->
+            <div class="device-input-section">
+                <label for="deviceSerialInput" class="device-input-label">🔍 Device Serial Number (Optional):</label>
+                <input type="text" 
+                       class="device-input" 
+                       id="deviceSerialInput" 
+                       placeholder="Enter device serial (e.g., DP0524BC10643)" 
+                       maxlength="20">
+                <small class="device-input-help">Enter a device serial number to get specific device information</small>
+            </div>
+
             <div class="quick-actions">
-                <button class="quick-action-btn" onclick="sendQuickMessage('Check device status')">📊 Device Status</button>
-                <button class="quick-action-btn" onclick="sendQuickMessage('Show device location')">📍 Location</button>
-                <button class="quick-action-btn" onclick="sendQuickMessage('List running apps')">📱 Apps</button>
-                <button class="quick-action-btn" onclick="sendQuickMessage('Device troubleshooting help')">🔧 Troubleshoot</button>
+                <button class="quick-action-btn" data-action="Check device status">📊 Device Status</button>
+                <button class="quick-action-btn" data-action="Show device location">📍 Location</button>
+                <button class="quick-action-btn" data-action="List running apps">📱 Apps</button>
+                <button class="quick-action-btn" data-action="Device troubleshooting help">🔧 Troubleshoot</button>
+                <button class="quick-action-btn" data-action="apk-manager">📱 APK Manager</button>
+                <button class="quick-action-btn" data-action="test-serial" style="background: #ff9800; color: white;">🧪 Test Serial</button>
+                <button class="quick-action-btn" data-action="developer-report" style="background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white;">🔍 API Debug Report</button>
+            </div>
+
+            <!-- APK Installation Section (Collapsible) -->
+            <div class="apk-section" id="apkSection" style="display: none;">
+                <div class="apk-header">
+                    <h6>📱 APK Installation & App Management</h6>
+                    <button class="close-btn" data-action="close-apk">×</button>
+                </div>
+                <div class="apk-content">
+                    <div class="apk-tabs">
+                        <button class="apk-tab active" data-tab="upload">Upload APK</button>
+                        <button class="apk-tab" data-tab="url">Install from URL</button>
+                        <button class="apk-tab" data-tab="manage">Manage Apps</button>
+                    </div>
+                    
+                    <!-- Upload APK Tab -->
+                    <div class="apk-tab-content" id="uploadTab">
+                        <form id="apkUploadForm" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="deviceSelect">Select Device</label>
+                                <select class="form-control" id="deviceSelect" required>
+                                    <option value="">Choose device...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="apkFile">APK File</label>
+                                <input type="file" class="form-control" id="apkFile" accept=".apk" required>
+                                <small class="form-text">Select an APK file to install (max 100MB)</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="appName">App Name (Optional)</label>
+                                <input type="text" class="form-control" id="appName" placeholder="Enter app name">
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <span class="spinner d-none" id="uploadSpinner"></span>
+                                Install APK
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Install from URL Tab -->
+                    <div class="apk-tab-content" id="urlTab" style="display: none;">
+                        <form id="urlInstallForm">
+                            <div class="form-group">
+                                <label for="deviceSelectUrl">Select Device</label>
+                                <select class="form-control" id="deviceSelectUrl" required>
+                                    <option value="">Choose device...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="appUrl">APK URL</label>
+                                <input type="url" class="form-control" id="appUrl" placeholder="https://example.com/app.apk" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="appNameUrl">App Name</label>
+                                <input type="text" class="form-control" id="appNameUrl" placeholder="Enter app name" required>
+                            </div>
+                            <button type="submit" class="btn-success">Install from URL</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Manage Apps Tab -->
+                    <div class="apk-tab-content" id="manageTab" style="display: none;">
+                        <form id="appManagementForm">
+                            <div class="form-group">
+                                <label for="deviceSelectManage">Select Device</label>
+                                <select class="form-control" id="deviceSelectManage" required>
+                                    <option value="">Choose device...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="packageNameManage">Package Name</label>
+                                <input type="text" class="form-control" id="packageNameManage" placeholder="com.example.app" required>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn-warning" data-action="update-app">Update</button>
+                                <button type="button" class="btn-danger" data-action="uninstall-app">Uninstall</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
 
             <form class="chat-input-form" id="chatForm">
@@ -461,8 +816,30 @@
         </div>
     </div>
 
+
+
+    <!-- Results Section -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">📊 Operation Results</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="operationResults" class="alert alert-info d-none">
+                            Results will appear here...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         let isGeminiReady = false;
+        let isTyping = false;
+        let typingTimeout;
 
         // Check server status and Gemini readiness
         async function checkStatus() {
@@ -605,7 +982,179 @@
 
         // Quick message buttons
         function sendQuickMessage(message) {
-            sendMessage(message);
+            // Get device serial number if entered
+            const deviceSerialInput = document.getElementById('deviceSerialInput');
+            const deviceSerial = deviceSerialInput ? deviceSerialInput.value.trim() : '';
+            
+            // Create prefixed message if device serial is provided
+            let finalMessage = message;
+            if (deviceSerial) {
+                // Create device-specific message based on exact button messages
+                switch(message) {
+                    case 'Check device status':
+                        finalMessage = `Check device status for ${deviceSerial}`;
+                        break;
+                    case 'Show device location':
+                        finalMessage = `Show device location for ${deviceSerial}`;
+                        break;
+                    case 'List running apps':
+                        finalMessage = `List running apps on device ${deviceSerial}`;
+                        break;
+                    case 'Device troubleshooting help':
+                        finalMessage = `Device troubleshooting help for ${deviceSerial}`;
+                        break;
+                    default:
+                        // Generic prefix for other messages
+                        finalMessage = `${deviceSerial}: ${message}`;
+                }
+            }
+            
+            // Send the message directly to chat
+            sendMessage(finalMessage);
+        }
+
+        // APK Manager Functions
+        function toggleApkSection() {
+            const apkSection = document.getElementById('apkSection');
+            if (apkSection.style.display === 'none') {
+                apkSection.style.display = 'block';
+                // Load devices when opening APK section
+                loadDevicesForApk();
+            } else {
+                apkSection.style.display = 'none';
+            }
+        }
+
+        function showApkTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.apk-tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.apk-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            const targetTab = document.getElementById(tabName + 'Tab');
+            if (targetTab) {
+                targetTab.style.display = 'block';
+            }
+            
+            // Add active class to selected tab
+            const activeTab = document.querySelector(`[data-tab="${tabName}"]`);
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
+        }
+
+        function loadDevicesForApk() {
+            // Load devices for all APK dropdowns
+            const selects = ['deviceSelect', 'deviceSelectUrl', 'deviceSelectManage'];
+            
+            fetch('/api/devices')
+                .then(response => response.json())
+                .then(data => {
+                    selects.forEach(selectId => {
+                        const select = document.getElementById(selectId);
+                        if (select) {
+                            select.innerHTML = '<option value="">Choose device...</option>';
+                            
+                            if (data.success && data.devices && data.devices.data) {
+                                data.devices.data.forEach(device => {
+                                    const option = document.createElement('option');
+                                    option.value = device.sn;
+                                    option.textContent = `${device.sn} (${device.model || 'Unknown'})`;
+                                    select.appendChild(option);
+                                });
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading devices for APK:', error);
+                });
+        }
+
+        // Enhanced device serial input with validation
+        function setupDeviceSerialInput() {
+            const deviceInput = document.getElementById('deviceSerialInput');
+            
+            // Add input validation and formatting
+            deviceInput.addEventListener('input', function(e) {
+                let value = e.target.value.toUpperCase();
+                // Remove any non-alphanumeric characters except hyphens
+                value = value.replace(/[^A-Z0-9-]/g, '');
+                e.target.value = value;
+                
+                // Update quick action button states
+                updateQuickActionButtons(value);
+            });
+            
+            // Add enter key support
+            deviceInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    // Trigger device status check when Enter is pressed
+                    sendQuickMessage('Check device status');
+                }
+            });
+        }
+
+        // Update quick action button appearance based on device input
+        function updateQuickActionButtons(deviceSerial) {
+            const buttons = document.querySelectorAll('.quick-action-btn');
+            
+            buttons.forEach(button => {
+                if (deviceSerial) {
+                    button.classList.add('device-specific');
+                    // Update button text to show it will be device-specific
+                    const originalText = button.textContent;
+                    if (!originalText.includes('→')) {
+                        const icon = originalText.split(' ')[0];
+                        const text = originalText.substring(originalText.indexOf(' ') + 1);
+                        button.setAttribute('data-original-text', originalText);
+                        button.textContent = `${icon} ${text} → ${deviceSerial}`;
+                    }
+                } else {
+                    button.classList.remove('device-specific');
+                    // Restore original button text
+                    const originalText = button.getAttribute('data-original-text');
+                    if (originalText) {
+                        button.textContent = originalText;
+                    }
+                }
+            });
+        }
+
+        // Handle system status requests with formatted response
+        async function handleSystemStatusRequest(originalMessage) {
+            // Add user message to chat
+            addMessage(originalMessage, 'user');
+            
+            // Show typing indicator
+            showTyping();
+            
+            try {
+                // Get formatted system status
+                const response = await fetch('/api/system-status');
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Display the formatted summary
+                    addMessage(data.summary, 'bot');
+                } else {
+                    // Fallback to regular AI response
+                    sendMessage(originalMessage);
+                }
+            } catch (error) {
+                console.error('System status error:', error);
+                // Fallback to regular AI response
+                sendMessage(originalMessage);
+            } finally {
+                hideTyping();
+            }
         }
 
         // Form submission
@@ -730,6 +1279,528 @@
 
         // Event listeners
         document.getElementById('show-diagnostic').addEventListener('click', showDiagnostic);
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDevices();
+            setupEventListeners();
+            setupDeviceSerialInput();
+            
+            // Focus on message input by default
+            document.getElementById('messageInput').focus();
+            
+            // Test device serial input after a short delay
+            setTimeout(testDeviceSerialInput, 1000);
+        });
+
+        // Test function to verify device serial input is working
+        function testDeviceSerialInput() {
+            const deviceInput = document.getElementById('deviceSerialInput');
+            console.log('TEST - Device input element found:', !!deviceInput);
+            if (deviceInput) {
+                console.log('TEST - Device input value:', deviceInput.value);
+                console.log('TEST - Device input placeholder:', deviceInput.placeholder);
+                
+                // Test setting a value
+                deviceInput.value = 'TEST123';
+                console.log('TEST - After setting TEST123:', deviceInput.value);
+                
+                // Clear it
+                deviceInput.value = '';
+                console.log('TEST - After clearing:', deviceInput.value);
+            }
+        }
+
+        // Manual test function for device serial capture
+        function testDeviceSerialCapture() {
+            const deviceInput = document.getElementById('deviceSerialInput');
+            const currentValue = deviceInput ? deviceInput.value.trim() : 'NOT_FOUND';
+            
+            alert(`Device Serial Input Test:
+Element found: ${!!deviceInput}
+Current value: "${currentValue}"
+Length: ${currentValue.length}
+
+${currentValue ? 'Serial captured successfully!' : 'No serial number entered or element not found'}`);
+            
+            console.log('MANUAL TEST - Device input element:', deviceInput);
+            console.log('MANUAL TEST - Current value:', currentValue);
+            
+            // If there's a value, test the sendQuickMessage function
+            if (currentValue && currentValue !== 'NOT_FOUND') {
+                console.log('MANUAL TEST - Testing sendQuickMessage with device serial...');
+                sendQuickMessage('Check device status');
+            }
+        }
+
+        // Generate developer report for Sunmi support
+        async function generateDeveloperReport() {
+            const deviceSerial = getDeviceSerial();
+            
+            addBotMessage("🔍 Generating detailed API debugging report for Sunmi developer...");
+            
+            try {
+                const endpoint = deviceSerial ? 
+                    `/api/developer-report/${encodeURIComponent(deviceSerial)}` : 
+                    '/api/developer-report';
+                
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const report = data.report;
+                    
+                    // Format the report for display
+                    let reportText = `📊 **SUNMI API DEBUGGING REPORT**\n`;
+                    reportText += `🕒 Generated: ${report.timestamp}\n`;
+                    reportText += `🔑 App ID: ${report.appId}\n`;
+                    reportText += `🌐 Base URL: ${report.baseURL}\n`;
+                    if (deviceSerial) {
+                        reportText += `📱 Device ID: ${deviceSerial}\n`;
+                    }
+                    reportText += `\n**TEST RESULTS:**\n`;
+                    
+                    report.testResults.forEach((test, index) => {
+                        reportText += `\n${index + 1}. **${test.test}**\n`;
+                        reportText += `   Status: ${test.success ? '✅ Success' : '❌ Failed'}\n`;
+                        
+                        if (test.endpoints_tried && Array.isArray(test.endpoints_tried)) {
+                            reportText += `   Endpoints Tried: ${test.endpoints_tried.length}\n`;
+                            test.endpoints_tried.forEach((endpoint, i) => {
+                                reportText += `     ${i + 1}. ${report.baseURL}${endpoint}\n`;
+                            });
+                        }
+                        
+                        if (test.error_code) {
+                            reportText += `   ⚠️ Error Code: ${test.error_code}\n`;
+                        }
+                        
+                        if (test.response && typeof test.response === 'object') {
+                            reportText += `   Response: ${JSON.stringify(test.response, null, 2)}\n`;
+                        } else if (test.response) {
+                            reportText += `   Response: ${test.response}\n`;
+                        }
+                    });
+                    
+                    if (report.recommendations && report.recommendations.length > 0) {
+                        reportText += `\n**RECOMMENDATIONS:**\n`;
+                        report.recommendations.forEach((rec, index) => {
+                            reportText += `\n${index + 1}. **${rec.issue}** (${rec.priority} Priority)\n`;
+                            reportText += `   Description: ${rec.description}\n`;
+                            reportText += `   Solution: ${rec.solution}\n`;
+                        });
+                    }
+                    
+                    addBotMessage(reportText);
+                    
+                    // Also log to console for easy copying
+                    console.log('\n🔍 SUNMI DEVELOPER REPORT:');
+                    console.log('='.repeat(50));
+                    console.log(JSON.stringify(report, null, 2));
+                    console.log('='.repeat(50));
+                    
+                    addBotMessage("📋 **Report generated successfully!** The detailed technical report has been logged to the browser console for easy copying. Press F12 → Console to view the full JSON data for Sunmi developer support.");
+                    
+                } else {
+                    addBotMessage(`❌ Failed to generate developer report: ${data.error}`, true);
+                }
+                
+            } catch (error) {
+                addBotMessage(`❌ Error generating developer report: ${error.message}`, true);
+            }
+        }
+
+        // Load available devices for all dropdowns
+        async function loadDevices() {
+            try {
+                const response = await fetch('/api/devices');
+                const data = await response.json();
+                
+                const deviceSelects = [
+                    'deviceSelect', 'deviceSelectUrl', 'deviceSelectManage',
+                    'deviceSelectMessage', 'deviceSelectNotification', 'deviceSelectCommand'
+                ];
+                
+                deviceSelects.forEach(selectId => {
+                    const select = document.getElementById(selectId);
+                    if (select) {
+                        select.innerHTML = '<option value="">Choose device...</option>';
+                        
+                        // Add simulated devices for demo (since VAS is not activated)
+                        const simulatedDevices = [
+                            { id: 'DP0524BC10643', name: 'Sunmi T2 Mini - Store 1' },
+                            { id: 'DP0524BK10402', name: 'Sunmi V2 Pro - Store 2' },
+                            { id: 'SIM001', name: 'Simulated Device 1' },
+                            { id: 'SIM002', name: 'Simulated Device 2' }
+                        ];
+                        
+                        simulatedDevices.forEach(device => {
+                            const option = document.createElement('option');
+                            option.value = device.id;
+                            option.textContent = device.name;
+                            select.appendChild(option);
+                        });
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading devices:', error);
+                showResult('Error loading devices: ' + error.message, 'danger');
+            }
+        }
+
+        // Setup all event listeners
+        function setupEventListeners() {
+            // Chat form submission
+            const chatForm = document.getElementById('chatForm');
+            if (chatForm) {
+                chatForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const messageInput = document.getElementById('messageInput');
+                    const message = messageInput.value.trim();
+                    
+                    if (message) {
+                        sendMessage(message);
+                        messageInput.value = '';
+                    }
+                });
+            }
+
+            // Quick action buttons
+            document.querySelectorAll('.quick-action-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const action = this.getAttribute('data-action');
+                    handleQuickAction(action);
+                });
+            });
+
+            // APK tab buttons
+            document.querySelectorAll('.apk-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    showApkTab(tabName);
+                });
+            });
+
+            // Close APK section button
+            const closeApkBtn = document.querySelector('[data-action="close-apk"]');
+            if (closeApkBtn) {
+                closeApkBtn.addEventListener('click', toggleApkSection);
+            }
+
+            // APK Upload Form (if exists)
+            const apkUploadForm = document.getElementById('apkUploadForm');
+            if (apkUploadForm) {
+                apkUploadForm.addEventListener('submit', handleApkUpload);
+            }
+            
+            // URL Install Form (if exists)
+            const urlInstallForm = document.getElementById('urlInstallForm');
+            if (urlInstallForm) {
+                urlInstallForm.addEventListener('submit', handleUrlInstall);
+            }
+
+            // App management buttons
+            const updateBtn = document.querySelector('[data-action="update-app"]');
+            const uninstallBtn = document.querySelector('[data-action="uninstall-app"]');
+            
+            if (updateBtn) updateBtn.addEventListener('click', updateApp);
+            if (uninstallBtn) uninstallBtn.addEventListener('click', uninstallApp);
+
+            // Diagnostic button (if it exists)
+            const diagnosticBtn = document.getElementById('show-diagnostic');
+            if (diagnosticBtn) {
+                diagnosticBtn.addEventListener('click', showDiagnostic);
+            }
+        }
+
+        // Handle quick action button clicks
+        function handleQuickAction(action) {
+            switch(action) {
+                case 'Check device status':
+                case 'Show device location':
+                case 'List running apps':
+                case 'Device troubleshooting help':
+                    sendQuickMessage(action);
+                    break;
+                case 'apk-manager':
+                    toggleApkSection();
+                    break;
+                case 'test-serial':
+                    testDeviceSerialCapture();
+                    break;
+                case 'developer-report':
+                    generateDeveloperReport();
+                    break;
+                default:
+                    console.log('Unknown action:', action);
+            }
+        }
+
+        // Handle APK file upload
+        async function handleApkUpload(event) {
+            event.preventDefault();
+            
+            const deviceId = document.getElementById('deviceSelect').value;
+            const apkFile = document.getElementById('apkFile').files[0];
+            const appName = document.getElementById('appName').value;
+            const packageName = document.getElementById('packageName').value;
+            
+            if (!deviceId || !apkFile) {
+                showResult('Please select a device and APK file', 'warning');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('apk', apkFile);
+            if (appName) formData.append('appName', appName);
+            if (packageName) formData.append('packageName', packageName);
+            
+            const spinner = document.getElementById('uploadSpinner');
+            spinner.classList.remove('d-none');
+            
+            try {
+                const response = await fetch(`/api/device/${deviceId}/install-app`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showResult(`✅ APK installation initiated successfully for ${apkFile.name}`, 'success');
+                    document.getElementById('apkUploadForm').reset();
+                } else {
+                    showResult(`❌ Installation failed: ${result.error}`, 'danger');
+                }
+            } catch (error) {
+                showResult(`❌ Upload error: ${error.message}`, 'danger');
+            } finally {
+                spinner.classList.add('d-none');
+            }
+        }
+
+        // Handle URL installation
+        async function handleUrlInstall(event) {
+            event.preventDefault();
+            
+            const deviceId = document.getElementById('deviceSelectUrl').value;
+            const appUrl = document.getElementById('appUrl').value;
+            const appName = document.getElementById('appNameUrl').value;
+            
+            try {
+                const response = await fetch(`/api/device/${deviceId}/install-app`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        appUrl: appUrl,
+                        appName: appName
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showResult(`✅ App installation from URL initiated successfully`, 'success');
+                    document.getElementById('urlInstallForm').reset();
+                } else {
+                    showResult(`❌ Installation failed: ${result.error}`, 'danger');
+                }
+            } catch (error) {
+                showResult(`❌ Installation error: ${error.message}`, 'danger');
+            }
+        }
+
+        // Handle message sending
+        async function handleSendMessage(event) {
+            event.preventDefault();
+            
+            const deviceId = document.getElementById('deviceSelectMessage').value;
+            const message = document.getElementById('messageContent').value;
+            const messageType = document.getElementById('messageType').value;
+            
+            try {
+                const response = await fetch(`/api/device/${deviceId}/send-message`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        messageType: messageType
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showResult(`✅ Message sent successfully to device`, 'success');
+                    document.getElementById('messageForm').reset();
+                } else {
+                    showResult(`❌ Message failed: ${result.error}`, 'danger');
+                }
+            } catch (error) {
+                showResult(`❌ Message error: ${error.message}`, 'danger');
+            }
+        }
+
+        // Handle notification sending
+        async function handleSendNotification(event) {
+            event.preventDefault();
+            
+            const deviceId = document.getElementById('deviceSelectNotification').value;
+            const title = document.getElementById('notificationTitle').value;
+            const content = document.getElementById('notificationContent').value;
+            const priority = document.getElementById('notificationPriority').value;
+            
+            try {
+                const response = await fetch(`/api/device/${deviceId}/send-notification`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        title: title,
+                        content: content,
+                        priority: priority
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showResult(`✅ Notification sent successfully`, 'success');
+                    document.getElementById('notificationForm').reset();
+                } else {
+                    showResult(`❌ Notification failed: ${result.error}`, 'danger');
+                }
+            } catch (error) {
+                showResult(`❌ Notification error: ${error.message}`, 'danger');
+            }
+        }
+
+        // Handle command sending
+        async function handleSendCommand(event) {
+            event.preventDefault();
+            
+            const deviceId = document.getElementById('deviceSelectCommand').value;
+            const commandType = document.getElementById('commandType').value;
+            const customCommand = document.getElementById('customCommand').value;
+            
+            const command = commandType === 'custom' ? customCommand : commandType;
+            
+            try {
+                const response = await fetch(`/api/device/${deviceId}/send-command`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        command: command,
+                        parameters: {}
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showResult(`✅ Command "${command}" executed successfully`, 'success');
+                    document.getElementById('commandForm').reset();
+                } else {
+                    showResult(`❌ Command failed: ${result.error}`, 'danger');
+                }
+            } catch (error) {
+                showResult(`❌ Command error: ${error.message}`, 'danger');
+            }
+        }
+
+        // App management functions
+        async function updateApp() {
+            const deviceId = document.getElementById('deviceSelectManage').value;
+            const packageName = document.getElementById('packageNameManage').value;
+            
+            if (!deviceId || !packageName) {
+                showResult('Please select device and enter package name', 'warning');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/device/${deviceId}/update-app`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        packageName: packageName
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showResult(`✅ App update initiated for ${packageName}`, 'success');
+                } else {
+                    showResult(`❌ Update failed: ${result.error}`, 'danger');
+                }
+            } catch (error) {
+                showResult(`❌ Update error: ${error.message}`, 'danger');
+            }
+        }
+
+        async function uninstallApp() {
+            const deviceId = document.getElementById('deviceSelectManage').value;
+            const packageName = document.getElementById('packageNameManage').value;
+            
+            if (!deviceId || !packageName) {
+                showResult('Please select device and enter package name', 'warning');
+                return;
+            }
+            
+            if (!confirm(`Are you sure you want to uninstall ${packageName}?`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/device/${deviceId}/uninstall-app`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        packageName: packageName
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showResult(`✅ App uninstallation initiated for ${packageName}`, 'success');
+                } else {
+                    showResult(`❌ Uninstall failed: ${result.error}`, 'danger');
+                }
+            } catch (error) {
+                showResult(`❌ Uninstall error: ${error.message}`, 'danger');
+            }
+        }
+
+        // Show operation results
+        function showResult(message, type = 'info') {
+            const resultsDiv = document.getElementById('operationResults');
+            resultsDiv.className = `alert alert-${type}`;
+            resultsDiv.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>${message}</span>
+                    <small class="text-muted">${new Date().toLocaleTimeString()}</small>
+                </div>
+            `;
+            resultsDiv.classList.remove('d-none');
+            
+            // Auto-hide after 10 seconds
+            setTimeout(() => {
+                resultsDiv.classList.add('d-none');
+            }, 10000);
+        }
     </script>
 </body>
 </html> 
