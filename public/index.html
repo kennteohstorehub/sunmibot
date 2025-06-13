@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunmi AI Agent - Customer Support Chatbot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-status {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            min-width: 300px;
+        }
+
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            padding-left: 360px; /* Make room for status panel */
+        }
+
+        .chat-container {
+            width: 95%;
+            max-width: 1200px;
+            height: 85vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .chat-header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .chat-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .status-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-ready {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .status-setup {
+            background: #FF9800;
+            color: white;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 14px;
+        }
+
+        .message.user .message-avatar {
+            background: #667eea;
+            order: 2;
+        }
+
+        .message.bot .message-avatar {
+            background: #764ba2;
+        }
+
+        .chat-input-container {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .chat-input-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .chat-input:focus {
+            border-color: #667eea;
+        }
+
+        .send-button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .send-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .send-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .device-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .quick-action-btn {
+            padding: 6px 12px;
+            background: #f0f0f0;
+            border: 1px solid #d0d0d0;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.2s;
+        }
+
+        .quick-action-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .typing-indicator .message-avatar {
+            background: #764ba2;
+        }
+
+        .typing-dots {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 18px;
+            padding: 12px 16px;
+        }
+
+        .typing-dots span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #999;
+            margin: 0 2px;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .welcome-message {
+            text-align: center;
+            color: #666;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 10px;
+                padding-left: 10px;
+            }
+            
+            .top-status {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin: 10px;
+                min-width: auto;
+                width: calc(100% - 20px);
+            }
+            
+            .chat-container {
+                width: 100%;
+                height: 80vh;
+                margin-top: 10px;
+            }
+            
+            .quick-actions {
+                flex-direction: column;
+            }
+            
+            .quick-action-btn {
+                text-align: center;
+                width: 100%;
+            }
+            
+            .message-content {
+                max-width: 85%;
+            }
+        }
+
+        .status-section {
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .status-grid {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+
+        .status-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .status-value {
+            font-size: 14px;
+        }
+
+        .success {
+            color: #4CAF50;
+        }
+
+        .warning {
+            color: #FF9800;
+        }
+
+        .error {
+            color: #c62828;
+        }
+
+        .diagnostic-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .diagnostic-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .diagnostic-report {
+            margin-top: 10px;
+        }
+
+        .capabilities {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .capability-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .error-text {
+            color: #c62828;
+        }
+
+        .data-text {
+            color: #333;
+        }
+
+        .recommendation {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Status Panel -->
+    <div class="top-status">
+        <h3>🔧 System Status</h3>
+        <div class="status-grid">
+            <div class="status-item">
+                <span class="status-label">Server:</span>
+                <span class="status-value" id="server-status">Checking...</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Sunmi API:</span>
+                <span class="status-value" id="sunmi-status">Checking...</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">AI Integration:</span>
+                <span class="status-value" id="ai-status">Checking...</span>
+            </div>
+        </div>
+        <div id="diagnostic-info" style="margin-top: 1rem; display: none;"></div>
+        <button id="show-diagnostic" class="diagnostic-btn">🔍 Show API Diagnostic</button>
+    </div>
+
+    <div class="main-container">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h1>🤖 Sunmi AI Agent</h1>
+                <p>Customer Support Chatbot with Gemini 2.5 Pro</p>
+                <div class="status-indicator" id="statusIndicator">
+                    <span id="statusText">Checking...</span>
+                </div>
+            </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="welcome-message">
+                <p>👋 Welcome! I'm your Sunmi device support assistant.</p>
+                <p>Ask me about device status, location, apps, or troubleshooting!</p>
+            </div>
+        </div>
+
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="message-avatar">🤖</div>
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <div class="quick-actions">
+                <button class="quick-action-btn" onclick="sendQuickMessage('Check device status')">📊 Device Status</button>
+                <button class="quick-action-btn" onclick="sendQuickMessage('Show device location')">📍 Location</button>
+                <button class="quick-action-btn" onclick="sendQuickMessage('List running apps')">📱 Apps</button>
+                <button class="quick-action-btn" onclick="sendQuickMessage('Device troubleshooting help')">🔧 Troubleshoot</button>
+            </div>
+
+            <form class="chat-input-form" id="chatForm">
+                <input type="text" class="chat-input" id="messageInput" placeholder="Type your message..." required>
+                <button type="submit" class="send-button" id="sendButton">Send</button>
+            </form>
+        </div>
+        </div>
+    </div>
+
+    <script>
+        let isGeminiReady = false;
+
+        // Check server status and Gemini readiness
+        async function checkStatus() {
+            try {
+                const response = await fetch('/api');
+                const data = await response.json();
+                
+                const statusIndicator = document.getElementById('statusIndicator');
+                const statusText = document.getElementById('statusText');
+                
+                if (data.status === 'running') {
+                    // Test if Gemini is configured
+                    const testResponse = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ message: 'test' })
+                    });
+                    
+                    const testData = await testResponse.json();
+                    
+                    if (testData.requiresSetup) {
+                        statusIndicator.className = 'status-indicator status-setup';
+                        statusText.textContent = 'Setup Required';
+                        isGeminiReady = false;
+                        addBotMessage("⚠️ Gemini API key needed! Please add GEMINI_API_KEY to enable AI responses.");
+                    } else {
+                        statusIndicator.className = 'status-indicator status-ready';
+                        statusText.textContent = 'AI Ready';
+                        isGeminiReady = true;
+                        addBotMessage("✅ Gemini AI is ready! How can I help you with your Sunmi devices?");
+                    }
+                } else {
+                    statusIndicator.className = 'status-indicator status-setup';
+                    statusText.textContent = 'Server Error';
+                }
+            } catch (error) {
+                const statusIndicator = document.getElementById('statusIndicator');
+                const statusText = document.getElementById('statusText');
+                statusIndicator.className = 'status-indicator status-setup';
+                statusText.textContent = 'Connection Error';
+                addBotMessage("❌ Cannot connect to server. Please make sure the server is running on port 3000.");
+            }
+        }
+
+        // Add message to chat
+        function addMessage(content, isUser = false, isError = false) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = isUser ? '👤' : '🤖';
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.textContent = content;
+            
+            if (isError) {
+                messageContent.style.background = '#ffebee';
+                messageContent.style.color = '#c62828';
+                messageContent.style.border = '1px solid #ffcdd2';
+            }
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(messageContent);
+            chatMessages.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addBotMessage(content, isError = false) {
+            addMessage(content, false, isError);
+        }
+
+        function addUserMessage(content) {
+            addMessage(content, true);
+        }
+
+        // Show/hide typing indicator
+        function showTyping() {
+            document.getElementById('typingIndicator').style.display = 'flex';
+            document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+        }
+
+        function hideTyping() {
+            document.getElementById('typingIndicator').style.display = 'none';
+        }
+
+        // Send message
+        async function sendMessage(message) {
+            if (!message.trim()) return;
+
+            // Add user message
+            addUserMessage(message);
+
+            // Disable send button and show typing
+            const sendButton = document.getElementById('sendButton');
+            sendButton.disabled = true;
+            sendButton.textContent = 'Sending...';
+            showTyping();
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        message: message
+                    })
+                });
+
+                const data = await response.json();
+                
+                hideTyping();
+                
+                if (data.response) {
+                    addBotMessage(data.response, !response.ok);
+                    
+                    if (data.requiresSetup) {
+                        isGeminiReady = false;
+                    }
+                } else {
+                    addBotMessage('Sorry, I encountered an error. Please try again.', true);
+                }
+
+            } catch (error) {
+                hideTyping();
+                addBotMessage('Connection error. Please check if the server is running.', true);
+            }
+
+            // Re-enable send button
+            sendButton.disabled = false;
+            sendButton.textContent = 'Send';
+        }
+
+        // Quick message buttons
+        function sendQuickMessage(message) {
+            sendMessage(message);
+        }
+
+        // Form submission
+        document.getElementById('chatForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+            
+            if (message) {
+                sendMessage(message);
+                messageInput.value = '';
+            }
+        });
+
+        // Initialize
+        checkStatus();
+        checkSystemStatus();
+
+        // Check system status
+        async function checkSystemStatus() {
+            try {
+                // Check server
+                document.getElementById('server-status').textContent = '✅ Online';
+                document.getElementById('server-status').className = 'status-value success';
+
+                // Check Sunmi API
+                try {
+                    const response = await fetch('/api/devices');
+                    const data = await response.json();
+                    
+                    if (data.success && data.devices && data.devices.code !== 30001) {
+                        document.getElementById('sunmi-status').textContent = '✅ Connected';
+                        document.getElementById('sunmi-status').className = 'status-value success';
+                    } else {
+                        document.getElementById('sunmi-status').textContent = '⚠️ Limited Access';
+                        document.getElementById('sunmi-status').className = 'status-value warning';
+                    }
+                } catch (error) {
+                    document.getElementById('sunmi-status').textContent = '❌ Error';
+                    document.getElementById('sunmi-status').className = 'status-value error';
+                }
+
+                // Check AI by testing a simple chat request
+                try {
+                    const testResponse = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: 'test' })
+                    });
+                    const testData = await testResponse.json();
+                    
+                    if (testData.requiresSetup) {
+                        document.getElementById('ai-status').textContent = '⚠️ API Key Needed';
+                        document.getElementById('ai-status').className = 'status-value warning';
+                    } else if (testData.error && testData.error.includes('quota')) {
+                        document.getElementById('ai-status').textContent = '⚠️ Quota Exceeded';
+                        document.getElementById('ai-status').className = 'status-value warning';
+                    } else if (testData.response) {
+                        document.getElementById('ai-status').textContent = '✅ Ready';
+                        document.getElementById('ai-status').className = 'status-value success';
+                    } else {
+                        document.getElementById('ai-status').textContent = '❌ Error';
+                        document.getElementById('ai-status').className = 'status-value error';
+                    }
+                } catch (error) {
+                    document.getElementById('ai-status').textContent = '❌ Error';
+                    document.getElementById('ai-status').className = 'status-value error';
+                }
+                
+            } catch (error) {
+                console.error('Status check error:', error);
+            }
+        }
+
+        // Show diagnostic information
+        async function showDiagnostic() {
+            try {
+                const response = await fetch('/api/diagnostic');
+                const data = await response.json();
+                
+                const diagnosticDiv = document.getElementById('diagnostic-info');
+                
+                if (data.success) {
+                    const diagnostic = data.diagnostic;
+                    let html = '<div class="diagnostic-report">';
+                    html += '<h4>📊 API Diagnostic Report</h4>';
+                    
+                    // Show capabilities
+                    html += '<div class="capabilities">';
+                    for (const [name, result] of Object.entries(diagnostic.capabilities)) {
+                        const status = result.success && result.hasData ? '✅' : result.success ? '⚠️' : '❌';
+                        html += `<div class="capability-item">`;
+                        html += `<span>${status} ${name}:</span>`;
+                        if (result.error) {
+                            html += `<span class="error-text">${result.error}</span>`;
+                        } else if (result.data) {
+                            html += `<span class="data-text">${result.data.msg || 'OK'}</span>`;
+                        }
+                        html += `</div>`;
+                    }
+                    html += '</div>';
+                    
+                    // Show recommendation
+                    html += '<div class="recommendation">';
+                    html += '<h5>💡 Recommendation:</h5>';
+                    html += `<pre>${diagnostic.recommendation}</pre>`;
+                    html += '</div>';
+                    
+                    html += '</div>';
+                    diagnosticDiv.innerHTML = html;
+                } else {
+                    diagnosticDiv.innerHTML = '<div class="error">Failed to load diagnostic information.</div>';
+                }
+                
+                diagnosticDiv.style.display = 'block';
+            } catch (error) {
+                console.error('Diagnostic error:', error);
+                document.getElementById('diagnostic-info').innerHTML = '<div class="error">Error loading diagnostic.</div>';
+                document.getElementById('diagnostic-info').style.display = 'block';
+            }
+        }
+
+        // Event listeners
+        document.getElementById('show-diagnostic').addEventListener('click', showDiagnostic);
+    </script>
+</body>
+</html> 
