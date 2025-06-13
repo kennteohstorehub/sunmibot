@@ -1,6 +1,14 @@
 # 🤖 Sunmi AI Agent - Customer Support Chatbot
 
+[![GitHub Repository](https://img.shields.io/badge/GitHub-sunmibot-blue?logo=github)](https://github.com/kennteohstorehub/sunmibot)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green?logo=node.js)](https://nodejs.org/)
+[![Production Ready](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)](https://github.com/kennteohstorehub/sunmibot)
+
 A professional AI-powered customer support chatbot for Sunmi device management, built with Node.js, Express, and Google Gemini AI.
+
+## 🌟 **Repository**
+
+🔗 **GitHub**: [https://github.com/kennteohstorehub/sunmibot.git](https://github.com/kennteohstorehub/sunmibot.git)
 
 ## ✨ Features
 
@@ -10,6 +18,8 @@ A professional AI-powered customer support chatbot for Sunmi device management, 
 - **🔒 Secure API**: HMAC-SHA256 authentication with Sunmi OpenAPI
 - **📊 System Monitoring**: Built-in diagnostic and health checking
 - **🚀 Production Ready**: Optimized for deployment and scaling
+- **🎨 Customizable AI Personality**: Multiple personality modes for different use cases
+- **🔧 Comprehensive Tooling**: VAS status checker, API testing, deployment scripts
 
 ## 🏗️ Architecture
 
@@ -24,6 +34,51 @@ A professional AI-powered customer support chatbot for Sunmi device management, 
                        │   Gemini AI     │
                        │ (Intelligence)  │
                        └─────────────────┘
+```
+
+## 🚀 **Quick Start**
+
+### **Prerequisites**
+- Node.js 18+ 
+- Sunmi Developer Account with API credentials
+- Google Gemini API key
+
+### **Installation**
+
+```bash
+# Clone the repository
+git clone https://github.com/kennteohstorehub/sunmibot.git
+cd sunmibot
+
+# Install dependencies
+npm install
+
+# Copy environment template
+cp config.env.example config.env
+
+# Edit config.env with your API keys
+nano config.env
+
+# Start development server
+npm run dev
+```
+
+### **Environment Configuration**
+
+Create `config.env` with your credentials:
+
+```env
+# Sunmi API Configuration
+SUNMI_API_BASE_URL=https://openapi.sunmi.com
+SUNMI_APP_ID=your_sunmi_app_id_here
+SUNMI_APP_KEY=your_sunmi_app_key_here
+
+# AI Service Configuration  
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# Server Configuration
+PORT=3000
+NODE_ENV=development
 ```
 
 ## 🚀 Production Deployment
@@ -65,8 +120,8 @@ API_RATE_WINDOW=15
 
 ```bash
 # Clone and install dependencies
-git clone <your-repo>
-cd SunmiAgent
+git clone https://github.com/kennteohstorehub/sunmibot.git
+cd sunmibot
 npm install
 
 # Start production server
@@ -75,38 +130,29 @@ npm start
 
 ### 3. Production Deployment Options
 
-#### Option A: Traditional Server (VPS/Dedicated)
+#### Option A: PM2 Process Manager
 
 ```bash
-# Install PM2 for process management
+# Install PM2 globally
 npm install -g pm2
 
 # Start with PM2
-pm2 start server.js --name "sunmi-agent"
+npm run pm2:start
+
+# Setup auto-restart on system reboot
 pm2 startup
 pm2 save
-
-# Setup reverse proxy (nginx)
-sudo apt install nginx
-# Configure nginx to proxy to port 3000
 ```
 
 #### Option B: Docker Deployment
 
-```dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-COPY . .
-EXPOSE 3000
-CMD ["node", "server.js"]
-```
-
 ```bash
-# Build and run
-docker build -t sunmi-agent .
-docker run -d -p 3000:3000 --env-file config.env sunmi-agent
+# Build and run with Docker
+npm run docker:build
+npm run docker:run
+
+# Or use docker-compose
+docker-compose up -d
 ```
 
 #### Option C: Cloud Deployment
@@ -180,6 +226,37 @@ The app includes security headers via Helmet.js:
 - [ ] **User Testing**: Test all chat functions
 - [ ] **API Limits**: Monitor Gemini usage quotas
 
+## 🔧 **Available Commands**
+
+```bash
+# Development
+npm run dev              # Start development server with nodemon
+npm run test            # Run API tests
+
+# Production
+npm start               # Start production server
+npm run pm2:start       # Start with PM2 process manager
+npm run pm2:stop        # Stop PM2 process
+npm run pm2:restart     # Restart PM2 process
+
+# Docker
+npm run docker:build    # Build Docker image
+npm run docker:run      # Run Docker container
+npm run docker:stop     # Stop Docker container
+
+# Utilities
+npm run check:vas       # Check Sunmi VAS access status
+npm run check:sunmi     # Same as above
+npm run diagnostic      # Run system diagnostic
+npm run health          # Check application health
+
+# AI Personality
+npm run personality             # List available personalities
+npm run personality:casual     # Set casual personality
+npm run personality:technical  # Set technical personality
+npm run personality:empathetic # Set empathetic personality
+```
+
 ## 🔧 API Endpoints
 
 ### Public Endpoints
@@ -196,44 +273,58 @@ The app includes security headers via Helmet.js:
 
 ### Common Issues
 
-**1. VAS Access Not Working**
+**1. VAS Access Not Working (Error 30000)**
 ```bash
-# Check diagnostic
-curl http://localhost:3000/api/diagnostic
+# Check VAS status
+npm run check:vas
 
-# Expected: "access forbid" until VAS activates
+# Contact Sunmi support with your App ID
+# See SUNMI_ERROR_30000_SOLUTION.md for detailed guide
 ```
 
-**2. Gemini API Errors**
+**2. Gemini API Issues**
 ```bash
-# Check API key and quotas
-# Monitor logs for rate limiting
+# Check API key in config.env
+# Verify quota limits in Google Cloud Console
 ```
 
-**3. Chat Not Responding**
+**3. Port Already in Use**
 ```bash
-# Check browser console for CSP errors
-# Verify server logs for errors
+# Change port in config.env
+PORT=3001
+
+# Or kill existing process
+lsof -ti:3000 | xargs kill
 ```
 
-## 📞 Support
+## 📚 **Documentation**
 
-- **Sunmi API Issues**: Contact Sunmi support
-- **Gemini API Issues**: Check Google AI Studio
-- **Application Issues**: Check server logs
+- **[Setup Guide](SETUP_GUIDE.md)** - Detailed setup instructions
+- **[Production Guide](PRODUCTION.md)** - Production deployment guide
+- **[Sunmi Error 30000 Solution](SUNMI_ERROR_30000_SOLUTION.md)** - VAS access troubleshooting
+- **[Gemini Setup](GEMINI_SETUP.md)** - AI configuration guide
 
-## 🎉 Ready for Production!
+## 🤝 **Contributing**
 
-Your Sunmi AI Agent is **production-ready** with intelligent customer support capabilities. The system will automatically gain full device management features once VAS access is activated by Sunmi.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-**Current Capabilities:**
-- ✅ Professional customer support chat
-- ✅ Intelligent troubleshooting guidance
-- ✅ Beautiful responsive interface
-- ✅ Production-grade security and monitoring
+## 📄 **License**
 
-**Coming Soon (with VAS access):**
-- 📊 Real device status monitoring
-- 📍 Live location tracking  
-- 📱 Running applications monitoring
-- 🌐 Network connectivity status 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 **Acknowledgments**
+
+- **Sunmi** for device management APIs
+- **Google** for Gemini AI integration
+- **Node.js** community for excellent packages
+- **Express.js** for the robust web framework
+
+---
+
+**🎉 Ready for Production!** Your Sunmi AI Agent is fully functional and ready to provide excellent customer support. Once VAS access is activated, it will automatically switch to real device data.
+
+For support or questions, please open an issue on [GitHub](https://github.com/kennteohstorehub/sunmibot/issues).
